@@ -114,13 +114,13 @@ cap.release()
 out.release()
 cv2.destroyAllWindows()
 
-print(f"\n✅ Processing complete!")
+print(f"\n Processing complete!")
 print(f"Total frames processed: {frame_count}")
 print(f"Total unique objects tracked: {len(track_history)}")
 print(f"Video saved to: {output_path}")
 
 # Print tracking statistics
 if track_history:
-    print("\n📊 Tracking Statistics:")
+    print("\n Tracking Statistics:")
     for track_id, positions in track_history.items():
         print(f"  Object ID {track_id}: {len(positions)} positions tracked")
