@@ -31,7 +31,7 @@ A comprehensive Python toolkit for real-time object detection and tracking using
 
 1. **Clone or download the project files**
 ```bash
-cd object-tracking
+cd object-tracking-suite
 ```
 
 2. **Install dependencies**
