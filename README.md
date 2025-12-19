@@ -221,7 +221,7 @@ results = model.track(
 ## 📁 Project Structure
 
 ```
-object-tracking/
+object-tracking-suite/
 ├── objectTracking.py              # Basic single-stream tracking
 ├── objecttracking_trails.py       # Tracking with trail visualization
 ├── multithreaded_tracking.py      # Multi-stream concurrent tracking
