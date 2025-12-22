@@ -83,6 +83,16 @@ python multithreaded_tracking.py
 - Sources: `video5.mp4` and `video8.mp4`
 - Automatically saves results
 
+**Option 4: Object Counting (Line-crossing)**
+
+Count objects entering/exiting a designated area:
+```bash
+python object_counting.py --video Resources/Videos/video7.mp4 --orientation horizontal --pos 0.5 --space-side below
+```
+- Configurable reference line orientation and position
+- Uses persistent track IDs to avoid double-counting
+- Saves annotated output video (default: `output_videos/tracked_count.mp4`)
+
 ## 📊 Scripts Explained
 
 ### objectTracking.py
@@ -127,6 +137,32 @@ if len(track) > 30:  # Adjust trail length here
     track.pop(0)
 cv2.polylines(..., thickness=10)  # Adjust trail thickness
 ```
+
+### object_counting.py
+Object counting via reference line crossing.
+
+**Features:**
+- Counts objects entering or exiting a space by crossing a configurable reference line
+- Uses persistent tracker IDs to reduce double-counting
+- Configurable orientation (`horizontal`/`vertical`), relative position (`--pos`), and `space-side`
+- Debounce frames to prevent rapid re-counting around the line
+- Saves annotated output video to `output_videos` by default
+
+**Use Cases:**
+- People counting at doorways
+- Vehicle counting across lanes
+- Access control / zone monitoring
+
+**Usage:**
+```bash
+python object_counting.py --video Resources/Videos/video7.mp4 --model yolo11n.pt --orientation horizontal --pos 0.5 --space-side below --out output_videos/counts.mp4
+```
+
+**Configuration:**
+- `--orientation`: `horizontal` or `vertical` (default: `horizontal`)
+- `--pos`: Relative line position between 0.0 and 1.0 (default: `0.8`)
+- `--space-side`: Which side is considered the monitored space (`above`, `below`, `left`, `right`)
+- `--debounce`: Number of frames to debounce a count (default: 5)
 
 ### multithreaded_tracking.py
 Parallel processing for multiple video streams.
@@ -224,6 +260,7 @@ results = model.track(
 object-tracking-suite/
 ├── objectTracking.py              # Basic single-stream tracking
 ├── objecttracking_trails.py       # Tracking with trail visualization
+├── object_counting.py             # Line-crossing object counting
 ├── multithreaded_tracking.py      # Multi-stream concurrent tracking
 ├── requirements.txt               # Python dependencies
 ├── README.md                      # This file
@@ -329,7 +366,7 @@ torch.cuda.empty_cache()
 2. **GPU Memory**: Larger models require more VRAM (4GB+ recommended)
 3. **Real-time Performance**: Depends on hardware; may need frame skipping on CPU-only systems
 4. **Track Persistence**: Object IDs may be reassigned if objects leave and re-enter frame
-5. **No Recording**: Currently displays only; doesn't save annotated videos (except multi-threaded version)
+4. **Recording**: Most scripts display results live; multithreaded tracking and `object_counting.py` also save annotated output videos by default, while others can be adapted to save as needed.
 
 ## 🤝 Extending the Project
 
