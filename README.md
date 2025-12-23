@@ -1,5 +1,4 @@
 # 🎯 Object Tracking Suite
-
 **Real-time Object Detection and Tracking with YOLOv11**
 
 A comprehensive Python toolkit for real-time object detection and tracking using YOLOv11, featuring single-stream tracking, multi-threaded processing, and trajectory visualization capabilities.
@@ -55,7 +54,7 @@ mkdir -p Resources/Videos
 
 Track objects in a video file or webcam feed:
 ```bash
-python objectTracking.py
+python scripts/objectTracking.py
 ```
 - Uses `yolo11n.pt` model
 - Source: `Resources/Videos/video5.mp4` (modify in code for webcam: `cap = cv2.VideoCapture(0)`)
@@ -65,7 +64,7 @@ python objectTracking.py
 
 Track objects and visualize their movement paths:
 ```bash
-python objecttracking_trails.py
+python scripts/objecttracking_trails.py
 ```
 - Displays 30-frame movement trails for each tracked object
 - Trail color: Blue (RGB: 230, 0, 0)
@@ -76,7 +75,7 @@ python objecttracking_trails.py
 
 Process multiple video streams simultaneously:
 ```bash
-python multithreaded_tracking.py
+python scripts/multithreaded_tracking.py
 ```
 - Concurrent processing of 2 video streams
 - Uses different models: `yolo11n.pt` and `yolo11n-seg.pt`
@@ -87,7 +86,7 @@ python multithreaded_tracking.py
 
 Count objects entering/exiting a designated area:
 ```bash
-python object_counting.py --video Resources/Videos/video7.mp4 --orientation horizontal --pos 0.5 --space-side below
+python scripts/object_counting.py --video Resources/Videos/video7.mp4 --orientation horizontal --pos 0.5 --space-side below
 ```
 - Configurable reference line orientation and position
 - Uses persistent track IDs to avoid double-counting
@@ -155,7 +154,7 @@ Object counting via reference line crossing.
 
 **Usage:**
 ```bash
-python object_counting.py --video Resources/Videos/video7.mp4 --model yolo11n.pt --orientation horizontal --pos 0.5 --space-side below --out output_videos/counts.mp4
+python scripts/object_counting.py --video Resources/Videos/video7.mp4 --model yolo11n.pt --orientation horizontal --pos 0.5 --space-side below --out output_videos/counts.mp4
 ```
 
 **Configuration:**
@@ -256,19 +255,26 @@ results = model.track(
 
 ## 📁 Project Structure
 
+
 ```
 object-tracking-suite/
-├── objectTracking.py              # Basic single-stream tracking
-├── objecttracking_trails.py       # Tracking with trail visualization
-├── object_counting.py             # Line-crossing object counting
-├── multithreaded_tracking.py      # Multi-stream concurrent tracking
-├── requirements.txt               # Python dependencies
-├── README.md                      # This file
-└── Resources/
+├── model/
+    ├── yolo11n-seg.pt                 # YOLOv11 Nano segmentation model
+    └── yolo11n.pt                     # YOLOv11 Nano detection model
+├── Resources/
     └── Videos/
-        ├── video5.mp4            # Sample video 1
-        ├── video7.mp4            # Sample video 2
-        └── video8.mp4            # Sample video 3
+        ├── video5.mp4                 # Sample video 1
+        ├── video7.mp4                 # Sample video 2
+        └── video8.mp4                 # Sample video 3
+├── scripts/
+    ├── multithreaded_tracking.py      # Multi-stream concurrent tracking
+    ├── object_counting.py             # Line-crossing object counting
+    ├── objecttracking_trails.py       # Tracking with trail visualization
+    └── objectTracking.py              # Basic single-stream tracking
+├── README.md                          # This file
+└── requirements.txt                   # Python dependencies
+
+
 ```
 
 ## 🎬 Workflow Examples
@@ -366,7 +372,7 @@ torch.cuda.empty_cache()
 2. **GPU Memory**: Larger models require more VRAM (4GB+ recommended)
 3. **Real-time Performance**: Depends on hardware; may need frame skipping on CPU-only systems
 4. **Track Persistence**: Object IDs may be reassigned if objects leave and re-enter frame
-4. **Recording**: Most scripts display results live; multithreaded tracking and `object_counting.py` also save annotated output videos by default, while others can be adapted to save as needed.
+5. **Recording**: Most scripts display results live; multithreaded tracking and `object_counting.py` also save annotated output videos by default, while others can be adapted to save as needed.
 
 ## 🤝 Extending the Project
 
