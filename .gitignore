@@ -1,1 +1,3 @@
-"output_videos/" 
+output_videos/
+model/*.pt
+Resources/Videos/
